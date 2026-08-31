@@ -9,26 +9,14 @@
     "dark": "#1D4ED8"
   },
   "navigation": {
-    "tabs": [
+    "products": [
       {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "authentication",
-              "environments",
-              "errors-and-retries",
-              "concepts"
-            ]
-          }
-        ]
+        "product": "PayPathIQ API",
+        "href": "/"
       },
       {
-        "tab": "API reference",
-        "openapi": "openapi.json"
+        "product": "Docket Bench API",
+        "href": "/docket-bench"
       }
     ]
   },

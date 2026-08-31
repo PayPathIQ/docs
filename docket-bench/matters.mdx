@@ -1,0 +1,87 @@
+---
+title: "Matter placement and updates"
+sidebarTitle: "Matters"
+description: "Create, replace, patch, and retrieve partner-owned Matter data."
+icon: "scale-balanced"
+---
+
+A Matter is the Partner API's primary resource. It carries partner-owned intake facts for one legal-recovery instruction.
+
+## Routes
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| <code>PUT</code> | <code>/v1/clients/{clientCode}/matters/by-external-reference/{externalReference}</code> | Create or fully replace partner-owned fields |
+| <code>PATCH</code> | Same path | Apply a JSON Merge Patch |
+| <code>GET</code> | Same path | Read by the partner's external reference |
+| <code>GET</code> | <code>/v1/matters/{matterId}</code> | Read by the Docket Bench Matter ID |
+
+The body <code>clientCode</code> must exactly match the path. The external reference is partner-supplied, opaque, case-sensitive, and stable for the lifetime of the Matter.
+
+## Matter Source representation
+
+```json
+{
+  "clientCode": "SDCC",
+  "debtor": {
+    "name": "Example Debtor Ltd",
+    "customerNumber": "C-99102",
+    "addresses": [
+      {
+        "type": "correspondence",
+        "line1": "12 Example Street",
+        "city": "Tallaght",
+        "state": "Dublin",
+        "postalCode": "D24 AC12",
+        "countryCode": "IE"
+      }
+    ],
+    "contacts": [
+      { "type": "email", "value": "accounts@example.ie" },
+      { "type": "phone", "value": "+353871234567" }
+    ]
+  },
+  "debt": {
+    "currency": "EUR",
+    "outstandingAmount": "1250.00"
+  },
+  "instruction": {
+    "summary": "Commercial rates arrears — instruct legal recovery",
+    "historyNotes": "Reminders issued; last contact noted on file",
+    "requestedAction": "letter_before_action"
+  }
+}
+```
+
+Unknown fields are rejected. Arbitrary metadata is not supported.
+
+## Minimum required for placement
+
+A new Matter must include:
+
+- A nonblank debtor name
+- A positive <code>debt.outstandingAmount</code> and an allowed ISO 4217 currency
+- Exactly one usable address with <code>type: correspondence</code>
+- For that address, either a valid Eircode or <code>line1</code> plus <code>city</code> and/or <code>state</code>
+
+Missing letter-minimum data returns <code>400</code>. Docket Bench does not accept an invalid placement for routine manual repair.
+
+## PUT and PATCH
+
+<code>PUT</code> is a complete replacement of partner-owned fields. The first successful create returns <code>201</code>; an accepted change or identical retry returns <code>200</code>.
+
+<code>PATCH</code> uses <code>application/merge-patch+json</code>. Omitted fields remain unchanged, <code>null</code> clears an optional value, and arrays replace the complete partner-owned collection. PATCH never creates a Matter.
+
+After creation, currency is immutable and the outstanding amount in Matter PUT is an assertion of the authoritative balance. Change the balance with a payment observation or, before any recovery activity, a source balance correction.
+
+## Responses and status
+
+Successful PUT, PATCH, and GET responses return the current representation plus:
+
+- <code>externalReference</code> and Docket Bench <code>matterId</code>
+- Server-issued <code>sourceRevisionId</code> and <code>lifecycleStateId</code>
+- <code>status</code>: <code>received</code>, <code>in\_review</code>, <code>active</code>, <code>paused</code>, or <code>closed</code>
+- <code>intakeStatus</code>: <code>needs\_review</code> or <code>ready</code>
+- <code>createdAt</code> and <code>updatedAt</code>
+
+Callers do not send revision IDs. Serialize writes per Matter. If different concurrent writes compete, one can return <code>409 source\_write\_conflict</code>; read the current Matter before retrying.

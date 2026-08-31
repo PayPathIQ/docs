@@ -1,0 +1,60 @@
+---
+title: "Errors and safe retries"
+sidebarTitle: "Errors and retries"
+description: "Handle typed Problem Details responses, safe retries, and concurrent writes."
+icon: "triangle-exclamation"
+---
+
+Errors use RFC 9457 Problem Details.
+
+```http
+Content-Type: application/problem+json
+```
+
+```json
+{
+  "type": "https://api.docketbench.example/problems/validation_failed",
+  "title": "Validation failed",
+  "status": 400,
+  "detail": "Letter minimum requires a usable address.",
+  "instance": "/v1/clients/SDCC/matters/by-external-reference/SDCC-2026-00482",
+  "requestId": "req_01JEXAMPLE",
+  "errors": [
+    {
+      "pointer": "/debtor/addresses",
+      "code": "usable_address_required"
+    }
+  ]
+}
+```
+
+The reserved <code>.example</code> problem-type domain shown in this preview will be replaced by the published Docket Bench problem-type URLs. Client software should branch on stable <code>type</code> and field <code>code</code> values, never the human-readable <code>detail</code>.
+
+## Common outcomes
+
+| Status | Meaning |
+| --- | --- |
+| <code>400</code> | Invalid schema, field, enum, money value, or letter minimum |
+| <code>401</code> | Missing, invalid, expired, or revoked partner key |
+| <code>403</code> | IP or Client scope denied |
+| <code>404</code> | Resource missing or not visible in the authenticated scope |
+| <code>409</code> | Resource conflict, stale lifecycle precondition, or competing write |
+| <code>429</code> | Rate or capacity limit |
+| <code>503</code> | Transient server failure; transaction was not partially applied |
+
+Every response includes <code>X-Request-Id</code>. Include that value when contacting support, but do not send keys or personal data.
+
+## Retry model
+
+Docket Bench does not use a caller <code>Idempotency-Key</code>, <code>sourceRevision</code>, or <code>sourceEventId</code> in v1.
+
+| Request | Safe retry rule |
+| --- | --- |
+| Matter PUT or PATCH | Same stable URL and identical normalized representation returns the current accepted revision |
+| Payment observation | Same external payment ID and identical content returns the existing observation |
+| Source balance correction | Same external correction ID and identical content returns the existing correction |
+| Lifecycle operation | Same operation, predecessor, and normalized command can return the accepted current occurrence |
+
+Serialize writes per Matter. If a Matter write returns <code>409 source\_write\_conflict</code>, GET the current representation before deciding whether to retry your intended update.
+
+Retry <code>429</code> and <code>503</code> with exponential backoff and jitter. Do not automatically retry validation, authorization, or semantic conflict responses without first correcting or reconciling the request.
