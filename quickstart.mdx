@@ -8,8 +8,8 @@ description: "Place a synthetic Party in the PayPathIQ sandbox."
 You need a sandbox Bearer key and the non-sensitive `clientCode` granted to that Integration. Never use production personal data while testing.
 
 <Steps>
-  <Step title="Choose stable identifiers">
-    Use an opaque source-record ID containing 1–128 letters, digits, underscores, or hyphens. Do not put member numbers, account numbers, names, emails, or phone numbers in a URL.
+  <Step title="Choose a Party ID">
+    `partyId` is the stable, caller-assigned ID for the Party record in your source system. It is the URL key for this Party, not a PayPathIQ ID, customer or member number, loan or account number, or contact detail. Keep it unchanged when a Party's name, address, email, or phone number changes. Use 1–128 letters, digits, underscores, or hyphens.
   </Step>
   <Step title="Place a Party">
 
