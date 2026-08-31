@@ -453,7 +453,7 @@
                 }
               },
               "safetyAssertions": {
-                "maxItems": 8,
+                "maxItems": 5,
                 "type": "array",
                 "items": {
                   "oneOf": [
@@ -532,7 +532,8 @@
                       "additionalProperties": false
                     }
                   ]
-                }
+                },
+                "description": "At most one assertion per type; ordering is semantically irrelevant."
               }
             },
             "required": [
@@ -679,7 +680,7 @@
                 }
               },
               "safetyAssertions": {
-                "maxItems": 8,
+                "maxItems": 5,
                 "type": "array",
                 "items": {
                   "oneOf": [
@@ -758,7 +759,8 @@
                       "additionalProperties": false
                     }
                   ]
-                }
+                },
+                "description": "At most one assertion per type; ordering is semantically irrelevant."
               }
             },
             "required": [
@@ -1011,7 +1013,7 @@
             }
           },
           "safetyAssertions": {
-            "maxItems": 8,
+            "maxItems": 5,
             "type": "array",
             "items": {
               "oneOf": [
@@ -1090,7 +1092,8 @@
                   "additionalProperties": false
                 }
               ]
-            }
+            },
+            "description": "At most one assertion per type; ordering is semantically irrelevant."
           },
           "sourceReference": {
             "anyOf": [
@@ -1298,7 +1301,7 @@
                 }
               },
               "safetyAssertions": {
-                "maxItems": 8,
+                "maxItems": 5,
                 "type": "array",
                 "items": {
                   "oneOf": [
@@ -1377,7 +1380,8 @@
                       "additionalProperties": false
                     }
                   ]
-                }
+                },
+                "description": "At most one assertion per type; ordering is semantically irrelevant."
               },
               "externalPartyId": {
                 "type": "string",
@@ -1535,7 +1539,7 @@
                 }
               },
               "safetyAssertions": {
-                "maxItems": 8,
+                "maxItems": 5,
                 "type": "array",
                 "items": {
                   "oneOf": [
@@ -1614,7 +1618,8 @@
                       "additionalProperties": false
                     }
                   ]
-                }
+                },
+                "description": "At most one assertion per type; ordering is semantically irrelevant."
               },
               "externalPartyId": {
                 "type": "string",
@@ -2568,7 +2573,8 @@
                 "type"
               ],
               "additionalProperties": false
-            }
+            },
+            "description": "At most one assertion per type; ordering is semantically irrelevant."
           },
           "recoverableAmount": {
             "type": "object",
@@ -2892,7 +2898,8 @@
                 "type"
               ],
               "additionalProperties": false
-            }
+            },
+            "description": "At most one assertion per type; ordering is semantically irrelevant."
           },
           "recoverableAmount": {
             "type": "object",
@@ -3178,7 +3185,8 @@
                 "type"
               ],
               "additionalProperties": false
-            }
+            },
+            "description": "At most one assertion per type; ordering is semantically irrelevant."
           },
           "recoverableAmount": {
             "type": "object",
