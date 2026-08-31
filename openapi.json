@@ -1011,7 +1011,7 @@
 								},
 								"description": "At most one assertion per type; ordering is semantically irrelevant."
 							},
-							"partyId": {
+							"externalPartyId": {
 								"type": "string",
 								"pattern": "^[A-Za-z0-9_-]{1,128}$",
 								"description": "Caller-assigned, opaque identifier for this Party's source-system record. It is not a PayPathIQ ID, customer or member number, loan or account number, or contact detail. Keep it stable when Party details change."
@@ -1022,7 +1022,7 @@
 								"pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
 							}
 						},
-						"required": ["name", "type", "partyId", "updatedAt"],
+						"required": ["name", "type", "externalPartyId", "updatedAt"],
 						"additionalProperties": false
 					},
 					{
@@ -1198,7 +1198,7 @@
 								},
 								"description": "At most one assertion per type; ordering is semantically irrelevant."
 							},
-							"partyId": {
+							"externalPartyId": {
 								"type": "string",
 								"pattern": "^[A-Za-z0-9_-]{1,128}$",
 								"description": "Caller-assigned, opaque identifier for this Party's source-system record. It is not a PayPathIQ ID, customer or member number, loan or account number, or contact detail. Keep it stable when Party details change."
@@ -1209,7 +1209,7 @@
 								"pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
 							}
 						},
-						"required": ["legalName", "type", "partyId", "updatedAt"],
+						"required": ["legalName", "type", "externalPartyId", "updatedAt"],
 						"additionalProperties": false
 					}
 				]
@@ -1404,7 +1404,7 @@
 								"minLength": 1,
 								"maxLength": 200
 							},
-							"relatedPaymentExternalId": {
+							"relatedExternalPaymentObservationId": {
 								"type": "string",
 								"pattern": "^[A-Za-z0-9_-]{1,128}$"
 							},
@@ -1417,7 +1417,7 @@
 							"method",
 							"resultingRecoverableAmount",
 							"sourceReference",
-							"relatedPaymentExternalId",
+							"relatedExternalPaymentObservationId",
 							"type"
 						],
 						"additionalProperties": false
@@ -1474,7 +1474,7 @@
 								"minLength": 1,
 								"maxLength": 200
 							},
-							"relatedPaymentExternalId": {
+							"relatedExternalPaymentObservationId": {
 								"type": "string",
 								"pattern": "^[A-Za-z0-9_-]{1,128}$"
 							},
@@ -1487,7 +1487,7 @@
 							"method",
 							"resultingRecoverableAmount",
 							"sourceReference",
-							"relatedPaymentExternalId",
+							"relatedExternalPaymentObservationId",
 							"type"
 						],
 						"additionalProperties": false
@@ -1555,7 +1555,7 @@
 								"format": "date-time",
 								"pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
 							},
-							"externalPaymentId": {
+							"externalPaymentObservationId": {
 								"type": "string",
 								"pattern": "^[A-Za-z0-9_-]{1,128}$"
 							}
@@ -1569,7 +1569,7 @@
 							"sourceReference",
 							"type",
 							"acceptedAt",
-							"externalPaymentId"
+							"externalPaymentObservationId"
 						],
 						"additionalProperties": false
 					},
@@ -1625,7 +1625,7 @@
 								"minLength": 1,
 								"maxLength": 200
 							},
-							"relatedPaymentExternalId": {
+							"relatedExternalPaymentObservationId": {
 								"type": "string",
 								"pattern": "^[A-Za-z0-9_-]{1,128}$"
 							},
@@ -1635,7 +1635,7 @@
 								"format": "date-time",
 								"pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
 							},
-							"externalPaymentId": {
+							"externalPaymentObservationId": {
 								"type": "string",
 								"pattern": "^[A-Za-z0-9_-]{1,128}$"
 							}
@@ -1647,10 +1647,10 @@
 							"method",
 							"resultingRecoverableAmount",
 							"sourceReference",
-							"relatedPaymentExternalId",
+							"relatedExternalPaymentObservationId",
 							"type",
 							"acceptedAt",
-							"externalPaymentId"
+							"externalPaymentObservationId"
 						],
 						"additionalProperties": false
 					},
@@ -1706,7 +1706,7 @@
 								"minLength": 1,
 								"maxLength": 200
 							},
-							"relatedPaymentExternalId": {
+							"relatedExternalPaymentObservationId": {
 								"type": "string",
 								"pattern": "^[A-Za-z0-9_-]{1,128}$"
 							},
@@ -1716,7 +1716,7 @@
 								"format": "date-time",
 								"pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
 							},
-							"externalPaymentId": {
+							"externalPaymentObservationId": {
 								"type": "string",
 								"pattern": "^[A-Za-z0-9_-]{1,128}$"
 							}
@@ -1728,10 +1728,10 @@
 							"method",
 							"resultingRecoverableAmount",
 							"sourceReference",
-							"relatedPaymentExternalId",
+							"relatedExternalPaymentObservationId",
 							"type",
 							"acceptedAt",
-							"externalPaymentId"
+							"externalPaymentObservationId"
 						],
 						"additionalProperties": false
 					}
@@ -1953,7 +1953,7 @@
 						"items": {
 							"type": "object",
 							"properties": {
-								"partyId": {
+								"externalPartyId": {
 									"type": "string",
 									"pattern": "^[A-Za-z0-9_-]{1,128}$",
 									"description": "Caller-assigned, opaque identifier for this Party's source-system record. It is not a PayPathIQ ID, customer or member number, loan or account number, or contact detail. Keep it stable when Party details change."
@@ -1963,7 +1963,7 @@
 									"enum": ["primary", "joint", "guarantor"]
 								}
 							},
-							"required": ["partyId", "role"],
+							"required": ["externalPartyId", "role"],
 							"additionalProperties": false
 						},
 						"description": "Party identifiers must be unique and exactly one role must be primary."
@@ -2194,7 +2194,7 @@
 						"items": {
 							"type": "object",
 							"properties": {
-								"partyId": {
+								"externalPartyId": {
 									"type": "string",
 									"pattern": "^[A-Za-z0-9_-]{1,128}$",
 									"description": "Caller-assigned, opaque identifier for this Party's source-system record. It is not a PayPathIQ ID, customer or member number, loan or account number, or contact detail. Keep it stable when Party details change."
@@ -2204,7 +2204,7 @@
 									"enum": ["primary", "joint", "guarantor"]
 								}
 							},
-							"required": ["partyId", "role"],
+							"required": ["externalPartyId", "role"],
 							"additionalProperties": false
 						},
 						"description": "Party identifiers must be unique and exactly one role must be primary."
@@ -2403,7 +2403,7 @@
 						"items": {
 							"type": "object",
 							"properties": {
-								"partyId": {
+								"externalPartyId": {
 									"type": "string",
 									"pattern": "^[A-Za-z0-9_-]{1,128}$",
 									"description": "Caller-assigned, opaque identifier for this Party's source-system record. It is not a PayPathIQ ID, customer or member number, loan or account number, or contact detail. Keep it stable when Party details change."
@@ -2413,7 +2413,7 @@
 									"enum": ["primary", "joint", "guarantor"]
 								}
 							},
-							"required": ["partyId", "role"],
+							"required": ["externalPartyId", "role"],
 							"additionalProperties": false
 						},
 						"description": "Party identifiers must be unique and exactly one role must be primary."
@@ -2482,7 +2482,7 @@
 			"ResponsibleParty": {
 				"type": "object",
 				"properties": {
-					"partyId": {
+					"externalPartyId": {
 						"type": "string",
 						"pattern": "^[A-Za-z0-9_-]{1,128}$",
 						"description": "Caller-assigned, opaque identifier for this Party's source-system record. It is not a PayPathIQ ID, customer or member number, loan or account number, or contact detail. Keep it stable when Party details change."
@@ -2492,7 +2492,7 @@
 						"enum": ["primary", "joint", "guarantor"]
 					}
 				},
-				"required": ["partyId", "role"],
+				"required": ["externalPartyId", "role"],
 				"additionalProperties": false
 			}
 		},
@@ -2512,7 +2512,7 @@
 	},
 	"openapi": "3.1.0",
 	"paths": {
-		"/v1/clients/{clientCode}/parties/{partyId}": {
+		"/v1/clients/{clientCode}/parties/{externalPartyId}": {
 			"get": {
 				"description": "Returns the calling Integration's current Party representation, never the merged operational Party.",
 				"operationId": "getParty",
@@ -2527,7 +2527,7 @@
 					{
 						"description": "Caller-assigned, opaque identifier for this Party's source-system record. It is stable when Party details change and is never a PayPathIQ ID, member or account number, or contact detail.",
 						"in": "path",
-						"name": "partyId",
+						"name": "externalPartyId",
 						"required": true,
 						"schema": { "$ref": "#/components/schemas/ExternalResourceId" }
 					}
@@ -2566,7 +2566,7 @@
 									],
 									"sourceReference": "member-ref-example",
 									"type": "person",
-									"partyId": "PTY_123",
+									"externalPartyId": "PTY_123",
 									"updatedAt": "2026-08-29T12:00:00Z"
 								},
 								"schema": { "$ref": "#/components/schemas/PartyResponse" }
@@ -2891,7 +2891,7 @@
 					{
 						"description": "Caller-assigned, opaque identifier for this Party's source-system record. It is stable when Party details change and is never a PayPathIQ ID, member or account number, or contact detail.",
 						"in": "path",
-						"name": "partyId",
+						"name": "externalPartyId",
 						"required": true,
 						"schema": { "$ref": "#/components/schemas/ExternalResourceId" }
 					}
@@ -2947,7 +2947,7 @@
 									],
 									"sourceReference": "member-ref-example",
 									"type": "person",
-									"partyId": "PTY_123",
+									"externalPartyId": "PTY_123",
 									"updatedAt": "2026-08-29T12:00:00Z"
 								},
 								"schema": { "$ref": "#/components/schemas/PartyResponse" }
@@ -3352,7 +3352,7 @@
 					{
 						"description": "Caller-assigned, opaque identifier for this Party's source-system record. It is stable when Party details change and is never a PayPathIQ ID, member or account number, or contact detail.",
 						"in": "path",
-						"name": "partyId",
+						"name": "externalPartyId",
 						"required": true,
 						"schema": { "$ref": "#/components/schemas/ExternalResourceId" }
 					}
@@ -3430,7 +3430,7 @@
 									],
 									"sourceReference": "member-ref-example",
 									"type": "person",
-									"partyId": "PTY_123",
+									"externalPartyId": "PTY_123",
 									"updatedAt": "2026-08-29T12:00:00Z"
 								},
 								"schema": { "$ref": "#/components/schemas/PartyResponse" }
@@ -3485,7 +3485,7 @@
 									],
 									"sourceReference": "member-ref-example",
 									"type": "person",
-									"partyId": "PTY_123",
+									"externalPartyId": "PTY_123",
 									"updatedAt": "2026-08-29T12:00:00Z"
 								},
 								"schema": { "$ref": "#/components/schemas/PartyResponse" }
@@ -3841,7 +3841,7 @@
 				"tags": ["Parties"]
 			}
 		},
-		"/v1/clients/{clientCode}/payment-observations/{externalPaymentId}": {
+		"/v1/clients/{clientCode}/payment-observations/{externalPaymentObservationId}": {
 			"get": {
 				"description": "Returns one immutable Integration-facing Payment observation.",
 				"operationId": "getPaymentObservation",
@@ -3856,7 +3856,7 @@
 					{
 						"description": "Opaque immutable Payment-observation identifier supplied by the Integration.",
 						"in": "path",
-						"name": "externalPaymentId",
+						"name": "externalPaymentObservationId",
 						"required": true,
 						"schema": { "$ref": "#/components/schemas/ExternalResourceId" }
 					}
@@ -3877,7 +3877,7 @@
 									"sourceReference": "payment-ref-example",
 									"type": "payment",
 									"acceptedAt": "2026-08-29T12:00:00Z",
-									"externalPaymentId": "PAY_123"
+									"externalPaymentObservationId": "PAY_123"
 								},
 								"schema": {
 									"$ref": "#/components/schemas/PaymentObservationResponse"
@@ -4203,7 +4203,7 @@
 					{
 						"description": "Opaque immutable Payment-observation identifier supplied by the Integration.",
 						"in": "path",
-						"name": "externalPaymentId",
+						"name": "externalPaymentObservationId",
 						"required": true,
 						"schema": { "$ref": "#/components/schemas/ExternalResourceId" }
 					}
@@ -4244,7 +4244,7 @@
 									"sourceReference": "payment-ref-example",
 									"type": "payment",
 									"acceptedAt": "2026-08-29T12:00:00Z",
-									"externalPaymentId": "PAY_123"
+									"externalPaymentObservationId": "PAY_123"
 								},
 								"schema": {
 									"$ref": "#/components/schemas/PaymentObservationResponse"
@@ -4282,7 +4282,7 @@
 									"sourceReference": "payment-ref-example",
 									"type": "payment",
 									"acceptedAt": "2026-08-29T12:00:00Z",
-									"externalPaymentId": "PAY_123"
+									"externalPaymentObservationId": "PAY_123"
 								},
 								"schema": {
 									"$ref": "#/components/schemas/PaymentObservationResponse"
@@ -4762,7 +4762,7 @@
 										"currency": "EUR"
 									},
 									"responsibleParties": [
-										{ "partyId": "PTY_123", "role": "primary" }
+										{ "externalPartyId": "PTY_123", "role": "primary" }
 									],
 									"sourceReference": "receivable-ref-example",
 									"externalReceivableId": "REC_123",
@@ -5138,7 +5138,7 @@
 										"currency": "EUR"
 									},
 									"responsibleParties": [
-										{ "partyId": "PTY_123", "role": "primary" }
+										{ "externalPartyId": "PTY_123", "role": "primary" }
 									],
 									"sourceReference": "receivable-ref-example",
 									"externalReceivableId": "REC_123",
@@ -5635,7 +5635,7 @@
 								"dueDate": "2026-08-01",
 								"recoverableAmount": { "amount": "1250.00", "currency": "EUR" },
 								"responsibleParties": [
-									{ "partyId": "PTY_123", "role": "primary" }
+									{ "externalPartyId": "PTY_123", "role": "primary" }
 								],
 								"sourceReference": "receivable-ref-example"
 							},
@@ -5675,7 +5675,7 @@
 										"currency": "EUR"
 									},
 									"responsibleParties": [
-										{ "partyId": "PTY_123", "role": "primary" }
+										{ "externalPartyId": "PTY_123", "role": "primary" }
 									],
 									"sourceReference": "receivable-ref-example",
 									"externalReceivableId": "REC_123",
@@ -5731,7 +5731,7 @@
 										"currency": "EUR"
 									},
 									"responsibleParties": [
-										{ "partyId": "PTY_123", "role": "primary" }
+										{ "externalPartyId": "PTY_123", "role": "primary" }
 									],
 									"sourceReference": "receivable-ref-example",
 									"externalReceivableId": "REC_123",
@@ -6193,7 +6193,7 @@
 										"currency": "EUR"
 									},
 									"responsibleParties": [
-										{ "partyId": "PTY_123", "role": "primary" }
+										{ "externalPartyId": "PTY_123", "role": "primary" }
 									],
 									"sourceReference": "receivable-ref-example",
 									"externalReceivableId": "REC_123",
@@ -6710,7 +6710,7 @@
 										"currency": "EUR"
 									},
 									"responsibleParties": [
-										{ "partyId": "PTY_123", "role": "primary" }
+										{ "externalPartyId": "PTY_123", "role": "primary" }
 									],
 									"sourceReference": "receivable-ref-example",
 									"externalReceivableId": "REC_123",
@@ -7211,7 +7211,7 @@
 										"currency": "EUR"
 									},
 									"responsibleParties": [
-										{ "partyId": "PTY_123", "role": "primary" }
+										{ "externalPartyId": "PTY_123", "role": "primary" }
 									],
 									"sourceReference": "receivable-ref-example",
 									"externalReceivableId": "REC_123",
@@ -7709,7 +7709,7 @@
 										"currency": "EUR"
 									},
 									"responsibleParties": [
-										{ "partyId": "PTY_123", "role": "primary" }
+										{ "externalPartyId": "PTY_123", "role": "primary" }
 									],
 									"sourceReference": "receivable-ref-example",
 									"externalReceivableId": "REC_123",
