@@ -1,0 +1,55 @@
+---
+title: "Incremental synchronization"
+sidebarTitle: "Synchronization"
+description: "Pull changed Matter status using a stable updatedSince cursor and opaque page tokens."
+icon: "arrows-rotate"
+---
+
+Use the list endpoint to synchronize partner-visible Matter state. It is a current-state projection, not an event log.
+
+## Request
+
+```bash
+curl \
+  --url "$DOCKET_BENCH_BASE_URL/v1/matters?clientCode=SDCC&updatedSince=2026-08-27T00:00:00Z&limit=100" \
+  --header "Authorization: Bearer $DOCKET_BENCH_API_KEY"
+```
+
+| Query parameter | Required | Meaning |
+| --- | --- | --- |
+| <code>clientCode</code> | Yes | A Client granted to the authenticated integration |
+| <code>updatedSince</code> | Yes | Inclusive ISO 8601 UTC lower bound |
+| <code>pageToken</code> | No | Opaque continuation token from the previous page |
+| <code>limit</code> | No | Default 100; maximum 200 |
+
+## Response
+
+```json
+{
+  "matters": [
+    {
+      "matterId": "mat_01JEXAMPLE",
+      "externalReference": "SDCC-2026-00482",
+      "clientCode": "SDCC",
+      "status": "active",
+      "intakeStatus": "ready",
+      "outstandingBalance": "1050.00",
+      "currency": "EUR",
+      "updatedAt": "2026-08-27T11:12:00Z"
+    }
+  ],
+  "nextPageToken": null
+}
+```
+
+The list deliberately excludes debtor names, addresses, contacts, instructions, revisions, and internal workflow data.
+
+## Paging
+
+Results are ordered by <code>updatedAt</code> ascending and then <code>matterId</code> ascending. A page token is bound to the integration, Client, original filter, and a snapshot watermark. Treat it as opaque and send it unchanged.
+
+Continue until <code>nextPageToken</code> is <code>null</code>. For the next synchronization run, use an overlap around your last completed watermark and de-duplicate by <code>matterId</code>; the inclusive lower bound makes this safe.
+
+## Changes included
+
+<code>updatedAt</code> advances when a material Matter update, payment observation, source balance correction, lifecycle operation, or Docket Bench workflow transition changes partner-visible state. Identical retries do not advance it.

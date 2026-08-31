@@ -1,0 +1,50 @@
+---
+title: "Authentication and environments"
+sidebarTitle: "Authentication"
+description: "Authenticate a partner integration and understand Client-scoped authorization."
+icon: "key"
+---
+
+Docket Bench uses Integration-owned Bearer keys for machine authentication.
+
+```http
+Authorization: Bearer <partner-key>
+```
+
+Keys are environment-specific, displayed once when provisioned, and stored by Docket Bench only as secure verifiers. Never place a key in a URL, repository, browser application, ticket, or support message.
+
+## Authentication is not authorization
+
+A valid key resolves to one source integration. PostgreSQL grants then determine which Client codes that integration may access.
+
+Docket Bench authorizes <code>clientCode</code> before looking up a resource. Unknown and unauthorized Client codes return the same generic <code>403 client\_scope\_denied</code> response. A key never carries self-asserted Client authority.
+
+## Environments
+
+Sandbox and production use separate:
+
+- Base URLs
+- Keys and grants
+- Databases and data
+- Network controls
+
+Sandbox cannot trigger live outbound communication or live provider activity. Production rejects test flags. Use the exact base URL supplied for the environment during onboarding.
+
+## Optional IP allowlist
+
+An integration may be restricted to approved source CIDR ranges. If enabled, requests from missing, malformed, or unapproved client addresses fail before resource access. Send Docket Bench the stable outbound addresses used by your integration; do not send employee workstation addresses.
+
+## Rotation and revocation
+
+Keys support immediate revocation and an overlapping rotation window:
+
+1. Create a replacement key.
+2. Deploy it to the partner system.
+3. Confirm successful requests with the new key.
+4. Revoke the old key.
+
+Authorization is re-checked on every request, including identical retries. A revoked key or removed Client grant cannot reuse an earlier successful receipt.
+
+## Transport and logging
+
+The API accepts HTTPS only. Docket Bench logs the route template, key identifier, outcome, and request ID—not Bearer credentials, request bodies, raw path identifiers, contact details, or notes.

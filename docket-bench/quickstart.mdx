@@ -1,0 +1,70 @@
+---
+title: "Quickstart"
+sidebarTitle: "Quickstart"
+description: "Create a valid Matter in the Docket Bench sandbox and safely retry the request."
+icon: "rocket"
+---
+
+Use the sandbox base URL, Bearer key, and Client code supplied during onboarding.
+
+## 1. Set your sandbox values
+
+```bash
+export DOCKET_BENCH_BASE_URL="<sandbox-base-url>"
+export DOCKET_BENCH_API_KEY="<sandbox-bearer-key>"
+export CLIENT_CODE="SDCC"
+export EXTERNAL_REFERENCE="SDCC-2026-00482"
+```
+
+Keep the external reference stable. It is your identifier for the Matter and must be unique within your integration and Client. Use 1–128 URL-safe characters from <code>A-Z</code>, <code>a-z</code>, <code>0-9</code>, period, underscore, and hyphen. Do not use names, account numbers, or other personal data in the URL.
+
+## 2. Create a Matter
+
+```bash
+curl --request PUT \
+  --url "$DOCKET_BENCH_BASE_URL/v1/clients/$CLIENT_CODE/matters/by-external-reference/$EXTERNAL_REFERENCE" \
+  --header "Authorization: Bearer $DOCKET_BENCH_API_KEY" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "clientCode": "SDCC",
+    "debtor": {
+      "name": "Example Debtor Ltd",
+      "customerNumber": "C-99102",
+      "addresses": [
+        {
+          "type": "correspondence",
+          "line1": "12 Example Street",
+          "city": "Tallaght",
+          "state": "Dublin",
+          "postalCode": "D24 AC12",
+          "countryCode": "IE"
+        }
+      ],
+      "contacts": []
+    },
+    "debt": {
+      "currency": "EUR",
+      "outstandingAmount": "1250.00"
+    },
+    "instruction": {
+      "summary": "Commercial rates arrears — instruct legal recovery",
+      "requestedAction": "letter_before_action"
+    }
+  }'
+```
+
+The first successful request returns <code>201 Created</code>, a <code>Location</code> header, and the current partner-facing Matter representation. The response includes Docket Bench's <code>matterId</code>, a server-issued <code>sourceRevisionId</code>, status fields, and timestamps.
+
+## 3. Retry safely
+
+Repeat the same request if the connection drops before you receive the response. An identical retry returns <code>200 OK</code> with the same current revision and unchanged <code>updatedAt</code>. Do not add an <code>Idempotency-Key</code> or caller revision.
+
+## 4. Read the current Matter
+
+```bash
+curl \
+  --url "$DOCKET_BENCH_BASE_URL/v1/clients/$CLIENT_CODE/matters/by-external-reference/$EXTERNAL_REFERENCE" \
+  --header "Authorization: Bearer $DOCKET_BENCH_API_KEY"
+```
+
+Every response includes <code>X-Request-Id</code> for support correlation and <code>Cache-Control: no-store</code>.

@@ -1,0 +1,45 @@
+---
+title: "Docket Bench Partner API"
+sidebarTitle: "Overview"
+description: "Place and synchronize local-authority recovery Matters with Docket Bench."
+icon: "book-open"
+tag: "Preview"
+---
+
+> The Partner API is in preview. These guides describe the accepted Phase 1 contract. Generated endpoint reference will become authoritative when the runtime OpenAPI document is published.
+
+The Docket Bench Partner API lets Ascendas and other approved partner systems place legal-recovery Matters, keep partner-owned facts current, report external payments, and synchronize operational status.
+
+## How the integration works
+
+1. Docket Bench provisions a separate sandbox key and Client grant.
+2. The partner creates a Matter with its own stable external reference.
+3. The partner sends updates, payment evidence, or explicit lifecycle instructions.
+4. The partner reads individual Matters or performs incremental synchronization with <code>updatedSince</code>.
+
+Each write is validated and applied synchronously. Invalid or unsafe data is rejected; Docket Bench does not accept records that require routine manual repair before they can become valid state.
+
+## Phase 1 capabilities
+
+| Capability | Method and path |
+| --- | --- |
+| Create or replace a Matter | <code>PUT /v1/clients/{clientCode}/matters/by-external-reference/{externalReference}</code> |
+| Partially update a Matter | <code>PATCH /v1/clients/{clientCode}/matters/by-external-reference/{externalReference}</code> |
+| Read a Matter | <code>GET /v1/clients/{clientCode}/matters/by-external-reference/{externalReference}</code> |
+| Read by Docket Bench ID | <code>GET /v1/matters/{matterId}</code> |
+| Incremental synchronization | <code>GET /v1/matters?clientCode=...\&updatedSince=...</code> |
+| Record an external payment | <code>PUT .../payment-observations/{externalPaymentId}</code> |
+| Correct an opening balance | <code>PUT .../source-balance-corrections/{externalCorrectionId}</code> |
+| Change lifecycle state | <code>POST .../lifecycle/{operation}</code> |
+
+## Contract principles
+
+- The partner owns <code>externalReference</code>; Docket Bench owns <code>matterId</code>.
+- Stable URLs and normalized request bodies make retries safe without an idempotency header.
+- Partner keys authenticate integrations; PostgreSQL grants authorize each <code>clientCode</code>.
+- Payment observations are immutable evidence. Corrections, refunds, and reversals are new records.
+- List responses contain only the fields required for synchronization and exclude debtor contact data.
+
+## Not in Phase 1
+
+Bulk import, outbound webhooks, document transfer, PracticeEvolve forwarding, public reconciliation exports, SDKs, and caller-supplied revisions are intentionally excluded.

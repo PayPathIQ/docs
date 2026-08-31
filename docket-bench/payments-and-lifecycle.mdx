@@ -1,0 +1,72 @@
+---
+title: "Payments, corrections, and lifecycle"
+sidebarTitle: "Payments and lifecycle"
+description: "Record immutable payment evidence, correct opening balances, and change Matter lifecycle state."
+icon: "money-check-dollar"
+---
+
+Financial evidence and lifecycle changes use occurrence-specific resources instead of rewriting Matter history.
+
+## Payment observations
+
+```http
+PUT /v1/clients/{clientCode}/matters/by-external-reference/{externalReference}/payment-observations/{externalPaymentId}
+```
+
+```json
+{
+  "type": "payment",
+  "amount": "200.00",
+  "currency": "EUR",
+  "effectiveOn": "2026-08-27",
+  "channel": "direct_to_creditor",
+  "reference": "BP-5521",
+  "resultingOutstandingAmount": "1050.00"
+}
+```
+
+<code>externalPaymentId</code> is the partner's stable identifier for this observation. A first accepted PUT returns <code>201</code>. The same ID and identical normalized content is a safe <code>200</code> retry; different content under the same ID returns <code>409 payment\_observation\_conflict</code>.
+
+Accepted observations are immutable. Represent a correction as a reversal observation followed by a new observation. A reversal identifies the original with <code>reversesExternalPaymentId</code>.
+
+## Opening balance corrections
+
+Use a source balance correction only to fix a mistaken opening amount or currency before any payment observation or outbound provider dispatch exists.
+
+```http
+PUT /v1/clients/{clientCode}/matters/by-external-reference/{externalReference}/source-balance-corrections/{externalCorrectionId}
+```
+
+```json
+{
+  "correctedOutstandingAmount": "1500.00",
+  "correctedCurrency": "EUR",
+  "reason": "opening_balance_error",
+  "effectiveOn": "2026-08-27",
+  "reference": "LA-ADJ-001"
+}
+```
+
+A first correction returns <code>201</code>; an identical retry returns <code>200</code>. Reusing the ID with different content returns <code>409 source\_balance\_correction\_conflict</code>. Once recovery activity exists, corrections fail with <code>409 source\_balance\_correction\_not\_allowed</code>.
+
+## Lifecycle operations
+
+```http
+POST /v1/clients/{clientCode}/matters/by-external-reference/{externalReference}/lifecycle/{operation}
+```
+
+Supported operations are <code>pause</code>, <code>clear-pause</code>, <code>close</code>, and <code>reopen</code>. Every Matter response includes the current server-issued <code>lifecycleStateId</code>. Supply that value as <code>predecessorLifecycleId</code>; do not invent an event ID.
+
+Pause example:
+
+```json
+{
+  "predecessorLifecycleId": "<current-lifecycle-state-id>",
+  "reason": "client_instruction",
+  "effectiveOn": "2026-08-27"
+}
+```
+
+Close can supersede an active pause. A closed Matter must be reopened before it can be paused. Clear-pause and reopen target the exact current hold created by the same integration.
+
+A stale or wrong predecessor returns <code>409 stale\_lifecycle\_precondition</code>. An identical lost-response retry can return the accepted current occurrence while it remains the lifecycle head. Clearing a hold never automatically resumes legal action or outbound communication; Docket Bench re-evaluates readiness and staff controls.
