@@ -291,7 +291,8 @@
 										"type"
 									],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one address may be primary."
 							},
 							"emails": {
 								"maxItems": 5,
@@ -313,7 +314,8 @@
 									},
 									"required": ["address", "isPrimary", "type"],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one email may be primary."
 							},
 							"phones": {
 								"maxItems": 5,
@@ -333,7 +335,8 @@
 									},
 									"required": ["isPrimary", "number", "type"],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one phone number may be primary."
 							},
 							"safetyAssertions": {
 								"maxItems": 5,
@@ -465,7 +468,8 @@
 										"type"
 									],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one address may be primary."
 							},
 							"emails": {
 								"maxItems": 5,
@@ -487,7 +491,8 @@
 									},
 									"required": ["address", "isPrimary", "type"],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one email may be primary."
 							},
 							"phones": {
 								"maxItems": 5,
@@ -507,7 +512,8 @@
 									},
 									"required": ["isPrimary", "number", "type"],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one phone number may be primary."
 							},
 							"safetyAssertions": {
 								"maxItems": 5,
@@ -658,7 +664,8 @@
 								"type"
 							],
 							"additionalProperties": false
-						}
+						},
+						"description": "At most one address may be primary."
 					},
 					"emails": {
 						"maxItems": 5,
@@ -680,7 +687,8 @@
 							},
 							"required": ["address", "isPrimary", "type"],
 							"additionalProperties": false
-						}
+						},
+						"description": "At most one email may be primary."
 					},
 					"legalName": { "type": "string", "minLength": 1, "maxLength": 200 },
 					"name": {
@@ -731,7 +739,8 @@
 							},
 							"required": ["isPrimary", "number", "type"],
 							"additionalProperties": false
-						}
+						},
+						"description": "At most one phone number may be primary."
 					},
 					"safetyAssertions": {
 						"maxItems": 5,
@@ -904,7 +913,8 @@
 										"type"
 									],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one address may be primary."
 							},
 							"emails": {
 								"maxItems": 5,
@@ -926,7 +936,8 @@
 									},
 									"required": ["address", "isPrimary", "type"],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one email may be primary."
 							},
 							"phones": {
 								"maxItems": 5,
@@ -946,7 +957,8 @@
 									},
 									"required": ["isPrimary", "number", "type"],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one phone number may be primary."
 							},
 							"safetyAssertions": {
 								"maxItems": 5,
@@ -1087,7 +1099,8 @@
 										"type"
 									],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one address may be primary."
 							},
 							"emails": {
 								"maxItems": 5,
@@ -1109,7 +1122,8 @@
 									},
 									"required": ["address", "isPrimary", "type"],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one email may be primary."
 							},
 							"phones": {
 								"maxItems": 5,
@@ -1129,7 +1143,8 @@
 									},
 									"required": ["isPrimary", "number", "type"],
 									"additionalProperties": false
-								}
+								},
+								"description": "At most one phone number may be primary."
 							},
 							"safetyAssertions": {
 								"maxItems": 5,
@@ -1487,7 +1502,8 @@
 						],
 						"additionalProperties": false
 					}
-				]
+				],
+				"description": "Payment decreases and refund or reversal increases the locked Receivable balance; resultingRecoverableAmount must match exactly."
 			},
 			"PaymentObservationResponse": {
 				"oneOf": [
@@ -1958,7 +1974,8 @@
 							},
 							"required": ["externalPartyId", "role"],
 							"additionalProperties": false
-						}
+						},
+						"description": "Party identifiers must be unique and exactly one role must be primary."
 					},
 					"sourceReference": {
 						"type": "string",
@@ -1973,7 +1990,8 @@
 					"responsibleParties",
 					"sourceReference"
 				],
-				"additionalProperties": false
+				"additionalProperties": false,
+				"description": "The balance breakdown must sum exactly to recoverableAmount."
 			},
 			"ReceivableMergePatch": {
 				"type": "object",
@@ -2196,7 +2214,8 @@
 							},
 							"required": ["externalPartyId", "role"],
 							"additionalProperties": false
-						}
+						},
+						"description": "Party identifiers must be unique and exactly one role must be primary."
 					},
 					"sourceReference": {
 						"type": "string",
@@ -2403,7 +2422,8 @@
 							},
 							"required": ["externalPartyId", "role"],
 							"additionalProperties": false
-						}
+						},
+						"description": "Party identifiers must be unique and exactly one role must be primary."
 					},
 					"sourceReference": {
 						"type": "string",
@@ -2434,7 +2454,8 @@
 					"status",
 					"updatedAt"
 				],
-				"additionalProperties": false
+				"additionalProperties": false,
+				"description": "The balance breakdown must sum exactly to recoverableAmount."
 			},
 			"ReceivableSafetyAssertion": {
 				"type": "object",
