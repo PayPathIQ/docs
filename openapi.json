@@ -253,15 +253,15 @@
 											"pattern": "^[A-Z]{2}$"
 										},
 										"isPrimary": { "type": "boolean" },
-										"lines": {
-											"minItems": 1,
-											"maxItems": 3,
-											"type": "array",
-											"items": {
-												"type": "string",
-												"minLength": 1,
-												"maxLength": 120
-											}
+										"line1": {
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 120
+										},
+										"line2": {
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 120
 										},
 										"locality": {
 											"type": "string",
@@ -286,7 +286,7 @@
 									"required": [
 										"countryCode",
 										"isPrimary",
-										"lines",
+										"line1",
 										"locality",
 										"type"
 									],
@@ -430,15 +430,15 @@
 											"pattern": "^[A-Z]{2}$"
 										},
 										"isPrimary": { "type": "boolean" },
-										"lines": {
-											"minItems": 1,
-											"maxItems": 3,
-											"type": "array",
-											"items": {
-												"type": "string",
-												"minLength": 1,
-												"maxLength": 120
-											}
+										"line1": {
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 120
+										},
+										"line2": {
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 120
 										},
 										"locality": {
 											"type": "string",
@@ -463,7 +463,7 @@
 									"required": [
 										"countryCode",
 										"isPrimary",
-										"lines",
+										"line1",
 										"locality",
 										"type"
 									],
@@ -589,18 +589,14 @@
 				"properties": {
 					"countryCode": { "type": "string", "pattern": "^[A-Z]{2}$" },
 					"isPrimary": { "type": "boolean" },
-					"lines": {
-						"minItems": 1,
-						"maxItems": 3,
-						"type": "array",
-						"items": { "type": "string", "minLength": 1, "maxLength": 120 }
-					},
+					"line1": { "type": "string", "minLength": 1, "maxLength": 120 },
+					"line2": { "type": "string", "minLength": 1, "maxLength": 120 },
 					"locality": { "type": "string", "minLength": 1, "maxLength": 120 },
 					"postalCode": { "type": "string", "minLength": 1, "maxLength": 20 },
 					"region": { "type": "string", "minLength": 1, "maxLength": 120 },
 					"type": { "type": "string", "enum": ["home", "work", "other"] }
 				},
-				"required": ["countryCode", "isPrimary", "lines", "locality", "type"],
+				"required": ["countryCode", "isPrimary", "line1", "locality", "type"],
 				"additionalProperties": false
 			},
 			"PartyEmail": {
@@ -629,16 +625,8 @@
 							"properties": {
 								"countryCode": { "type": "string", "pattern": "^[A-Z]{2}$" },
 								"isPrimary": { "type": "boolean" },
-								"lines": {
-									"minItems": 1,
-									"maxItems": 3,
-									"type": "array",
-									"items": {
-										"type": "string",
-										"minLength": 1,
-										"maxLength": 120
-									}
-								},
+								"line1": { "type": "string", "minLength": 1, "maxLength": 120 },
+								"line2": { "type": "string", "minLength": 1, "maxLength": 120 },
 								"locality": {
 									"type": "string",
 									"minLength": 1,
@@ -659,7 +647,7 @@
 							"required": [
 								"countryCode",
 								"isPrimary",
-								"lines",
+								"line1",
 								"locality",
 								"type"
 							],
@@ -875,15 +863,15 @@
 											"pattern": "^[A-Z]{2}$"
 										},
 										"isPrimary": { "type": "boolean" },
-										"lines": {
-											"minItems": 1,
-											"maxItems": 3,
-											"type": "array",
-											"items": {
-												"type": "string",
-												"minLength": 1,
-												"maxLength": 120
-											}
+										"line1": {
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 120
+										},
+										"line2": {
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 120
 										},
 										"locality": {
 											"type": "string",
@@ -908,7 +896,7 @@
 									"required": [
 										"countryCode",
 										"isPrimary",
-										"lines",
+										"line1",
 										"locality",
 										"type"
 									],
@@ -1061,15 +1049,15 @@
 											"pattern": "^[A-Z]{2}$"
 										},
 										"isPrimary": { "type": "boolean" },
-										"lines": {
-											"minItems": 1,
-											"maxItems": 3,
-											"type": "array",
-											"items": {
-												"type": "string",
-												"minLength": 1,
-												"maxLength": 120
-											}
+										"line1": {
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 120
+										},
+										"line2": {
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 120
 										},
 										"locality": {
 											"type": "string",
@@ -1094,7 +1082,7 @@
 									"required": [
 										"countryCode",
 										"isPrimary",
-										"lines",
+										"line1",
 										"locality",
 										"type"
 									],
@@ -2547,9 +2535,11 @@
 										{
 											"countryCode": "IE",
 											"isPrimary": true,
-											"lines": ["1 Example Street"],
+											"line1": "1 Example Street",
+											"line2": "Example Building",
 											"locality": "Dublin",
 											"postalCode": "D02 X285",
+											"region": "Dublin",
 											"type": "home"
 										}
 									],
@@ -2926,9 +2916,11 @@
 										{
 											"countryCode": "IE",
 											"isPrimary": true,
-											"lines": ["1 Example Street"],
+											"line1": "1 Example Street",
+											"line2": "Example Building",
 											"locality": "Dublin",
 											"postalCode": "D02 X285",
+											"region": "Dublin",
 											"type": "home"
 										}
 									],
@@ -3367,9 +3359,11 @@
 									{
 										"countryCode": "IE",
 										"isPrimary": true,
-										"lines": ["1 Example Street"],
+										"line1": "1 Example Street",
+										"line2": "Example Building",
 										"locality": "Dublin",
 										"postalCode": "D02 X285",
+										"region": "Dublin",
 										"type": "home"
 									}
 								],
@@ -3405,9 +3399,11 @@
 										{
 											"countryCode": "IE",
 											"isPrimary": true,
-											"lines": ["1 Example Street"],
+											"line1": "1 Example Street",
+											"line2": "Example Building",
 											"locality": "Dublin",
 											"postalCode": "D02 X285",
+											"region": "Dublin",
 											"type": "home"
 										}
 									],
@@ -3458,9 +3454,11 @@
 										{
 											"countryCode": "IE",
 											"isPrimary": true,
-											"lines": ["1 Example Street"],
+											"line1": "1 Example Street",
+											"line2": "Example Building",
 											"locality": "Dublin",
 											"postalCode": "D02 X285",
+											"region": "Dublin",
 											"type": "home"
 										}
 									],
