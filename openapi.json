@@ -213,12 +213,12 @@
 							"name": {
 								"type": "object",
 								"properties": {
-									"familyName": {
+									"firstName": {
 										"type": "string",
 										"minLength": 1,
 										"maxLength": 120
 									},
-									"givenName": {
+									"lastName": {
 										"type": "string",
 										"minLength": 1,
 										"maxLength": 120
@@ -233,7 +233,7 @@
 										}
 									}
 								},
-								"required": ["familyName", "givenName"],
+								"required": ["firstName", "lastName"],
 								"additionalProperties": false
 							},
 							"sourceReference": {
@@ -694,12 +694,12 @@
 					"name": {
 						"type": "object",
 						"properties": {
-							"familyName": {
+							"firstName": {
 								"type": "string",
 								"minLength": 1,
 								"maxLength": 120
 							},
-							"givenName": {
+							"lastName": {
 								"type": "string",
 								"minLength": 1,
 								"maxLength": 120
@@ -835,12 +835,12 @@
 							"name": {
 								"type": "object",
 								"properties": {
-									"familyName": {
+									"firstName": {
 										"type": "string",
 										"minLength": 1,
 										"maxLength": 120
 									},
-									"givenName": {
+									"lastName": {
 										"type": "string",
 										"minLength": 1,
 										"maxLength": 120
@@ -855,7 +855,7 @@
 										}
 									}
 								},
-								"required": ["familyName", "givenName"],
+								"required": ["firstName", "lastName"],
 								"additionalProperties": false
 							},
 							"sourceReference": {
@@ -2560,7 +2560,7 @@
 											"type": "personal"
 										}
 									],
-									"name": { "familyName": "Example", "givenName": "Avery" },
+									"name": { "firstName": "Avery", "lastName": "Example" },
 									"phones": [
 										{
 											"isPrimary": true,
@@ -2939,7 +2939,7 @@
 											"type": "personal"
 										}
 									],
-									"name": { "familyName": "Example", "givenName": "Avery" },
+									"name": { "firstName": "Avery", "lastName": "Example" },
 									"phones": [
 										{
 											"isPrimary": true,
@@ -3380,7 +3380,7 @@
 										"type": "personal"
 									}
 								],
-								"name": { "familyName": "Example", "givenName": "Avery" },
+								"name": { "firstName": "Avery", "lastName": "Example" },
 								"phones": [
 									{
 										"isPrimary": true,
@@ -3418,7 +3418,7 @@
 											"type": "personal"
 										}
 									],
-									"name": { "familyName": "Example", "givenName": "Avery" },
+									"name": { "firstName": "Avery", "lastName": "Example" },
 									"phones": [
 										{
 											"isPrimary": true,
@@ -3471,7 +3471,7 @@
 											"type": "personal"
 										}
 									],
-									"name": { "familyName": "Example", "givenName": "Avery" },
+									"name": { "firstName": "Avery", "lastName": "Example" },
 									"phones": [
 										{
 											"isPrimary": true,
