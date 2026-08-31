@@ -6,7 +6,7 @@ description: "Send recovery-ready receivables to PayPathIQ one record at a time.
 The PayPathIQ inbound API lets an approved source Integration create and maintain Parties, Receivables, and immutable Payment observations.
 
 <Warning>
-  This branch is a contract preview. Party placement is implemented in sandbox; the remaining documented operations become available as their implementation tickets ship.
+  Use sandbox with synthetic data while PayPathIQ completes your approved production activation. Production recovery remains disabled until the representative cohort is reconciled and approved.
 </Warning>
 
 The API validates and projects every accepted request synchronously. A successful response means the record is PayPathIQ state. Data that cannot be projected safely is rejected with a typed error.

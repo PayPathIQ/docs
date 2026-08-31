@@ -21,7 +21,8 @@
               "authentication",
               "environments",
               "errors-and-retries",
-              "concepts"
+              "concepts",
+              "versioning-and-deprecation"
             ]
           }
         ]
