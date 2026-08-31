@@ -1,0 +1,34 @@
+---
+title: "Errors and retries"
+description: "Handle typed problem details and retry only transient failures."
+---
+
+Errors use RFC 9457 `application/problem+json`. Parse the HTTP status, problem `type`, and stable `code`; do not depend on human-readable wording.
+
+```json
+{
+  "type": "https://api.paypathiq.com/problems/dependency-missing",
+  "title": "Dependency missing",
+  "status": 409,
+  "detail": "A required parent resource does not exist.",
+  "code": "dependency_missing",
+  "requestId": "req_01J6A2EXAMPLE"
+}
+```
+
+## Retry policy
+
+Retry only `429`, `500`, and `503` responses. Use exponential backoff with jitter and honor `Retry-After` when present. Do not retry an unchanged `4xx` request.
+
+| Status | Meaning | Action |
+| --- | --- | --- |
+| `400` | Malformed request | Correct the JSON or request shape |
+| `401` | Invalid or revoked key | Replace or rotate the key |
+| `403` | Client or scope denied | Ask an administrator to verify the grant |
+| `404` | Authorized resource not found | Verify the external ID |
+| `409` | Dependency, state, or immutable-event conflict | Reconcile source state |
+| `422` | Field or safety validation failed | Correct the supplied record |
+| `429` | Rate or concurrency limit | Retry after the indicated delay |
+| `500`, `503` | Transient service failure | Retry with backoff |
+
+Every response includes `X-Request-Id`. Include it when reporting a failed request, but do not send the API key or full personal-data payload.

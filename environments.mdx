@@ -1,0 +1,15 @@
+---
+title: "Environments"
+description: "Keep sandbox and production credentials and data separate."
+---
+
+| Environment | Base URL | Key prefix |
+| --- | --- | --- |
+| Sandbox | `https://api.sandbox.paypathiq.com` | `ppiq_test_` |
+| Production | `https://api.paypathiq.com` | `ppiq_live_` |
+
+Sandbox and production use separate databases, keys, and grants. A key issued for one environment never works in the other.
+
+Use synthetic data in sandbox. Sandbox never sends external communications or invokes live providers. Production does not accept an `isTest` flag.
+
+Before production recovery is enabled, PayPathIQ and the Client reconcile a representative ingestion cohort and approve the Portfolio activation gate.
