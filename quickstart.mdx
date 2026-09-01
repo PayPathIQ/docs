@@ -1,47 +1,52 @@
 ---
 title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+description: "Place a synthetic Party in the PayPathIQ sandbox."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
+## Before you begin
 
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+You need a sandbox Bearer key and the non-sensitive `clientCode` granted to that Integration. Never use production personal data while testing.
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+  <Step title="Choose your external Party ID">
+    `externalPartyId` is the stable, caller-assigned ID for the Party record in your source system. PayPathIQ does not generate or interpret it. It must not be a customer or member number, loan or account number, or contact detail. Keep it unchanged when a Party's name, address, email, or phone number changes. Use 1–128 letters, digits, underscores, or hyphens.
+  </Step>
+  <Step title="Place a Party">
 
     ```bash
-    npm install your-package
+    curl --request PUT \
+      --url https://api.sandbox.paypathiq.com/v1/clients/CU_DEMO/parties/PTY_123 \
+      --header 'Authorization: Bearer ppiq_test_your_key' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "type": "person",
+        "name": {
+          "firstName": "Avery",
+          "lastName": "Example"
+        },
+        "sourceReference": "member-ref-example",
+        "emails": [
+          {
+            "address": "avery@example.test",
+            "type": "personal",
+            "isPrimary": true
+          }
+        ]
+      }'
     ```
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
+  <Step title="Read it back">
 
     ```bash
-    your-cli init
+    curl --request GET \
+      --url https://api.sandbox.paypathiq.com/v1/clients/CU_DEMO/parties/PTY_123 \
+      --header 'Authorization: Bearer ppiq_test_your_key'
     ```
-  </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
 
-    ```bash
-    your-cli start
-    ```
+    The first successful `PUT` returns `201 Created`. An update or identical retry returns `200 OK`.
   </Step>
 </Steps>
 
 <Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
-
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
+  Lose a response after sending a request? Repeat the same request or `GET` the resource. Stable URLs and normalized payload digests make identical retries safe.
 </Tip>

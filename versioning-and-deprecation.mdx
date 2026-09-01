@@ -1,0 +1,18 @@
+---
+title: "Versioning and deprecation"
+description: "Understand PayPathIQ API compatibility and migration commitments."
+---
+
+The `/v1` path versions the shared API mechanics and Receivables core. Your Integration grant fixes the `credit_union.v1` profile; you cannot select a profile in a request.
+
+Optional response fields may be added without a new API version. Breaking core changes require `/v2`. Breaking credit-union profile changes require `credit_union.v2`.
+
+## Support period
+
+PayPathIQ supports a breaking version for at least 12 months after its replacement is generally available. A security or legal requirement may require a shorter transition.
+
+## Deprecation notice
+
+For a planned breaking change, PayPathIQ publishes a dated changelog and migration guide. It also notifies the named Integration technical contact directly. API responses use the standard `Deprecation` and `Sunset` headers and link to the migration guidance.
+
+Keep a current technical contact with your PayPathIQ Integration administrator so your team receives deprecation notices.

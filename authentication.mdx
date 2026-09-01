@@ -1,0 +1,20 @@
+---
+title: "Authentication"
+description: "Authenticate machine requests with an Integration-owned Bearer key."
+---
+
+Send the environment-specific API key in the `Authorization` header:
+
+```http
+Authorization: Bearer ppiq_test_your_key
+```
+
+An Integration administrator creates separate sandbox and production keys. The complete key is displayed once. Store it in a secret manager and never commit it, log it, put it in a URL, or paste it into this documentation site.
+
+Each key resolves to server-side grants for an Integration, Client, Portfolio, scopes, environment, and the `credit_union.v1` profile. The URL `clientCode` must match a current grant. Unknown and unauthorized Client codes both return `403 client_scope_denied`.
+
+## Rotation and revocation
+
+Keys support overlapping rotation so you can deploy a replacement before revoking the old key. Revocation is immediate and irreversible. A revoked or invalid key receives a generic `401` response.
+
+An optional IP allowlist can further restrict a key. Contact your PayPathIQ Integration administrator to change grants, rotate a key, or revoke access.

@@ -1,0 +1,30 @@
+---
+title: "Core concepts"
+description: "Understand resources, ownership, replacement, and lifecycle semantics."
+---
+
+## Three resources
+
+- **Party**: the person or organisation responsible for payment, including current source-owned contact details.
+- **Receivable**: one independently recoverable amount, responsible Parties, dates, and typed `credit_union.v1` loan context.
+- **Payment observation**: immutable evidence of an externally received payment, refund, or reversal.
+
+Create dependencies in that order. A missing parent returns `409 dependency_missing`; PayPathIQ does not auto-create or queue it.
+
+Cases, workflow, communications, commitments, automation, and recovery policy remain PayPathIQ-owned projections. An Integration may update only its own source representation.
+
+## Updates
+
+`PUT` creates or replaces the complete source-owned representation. `PATCH` uses RFC 7396 JSON Merge Patch: omitted fields remain unchanged, `null` clears a nullable scalar, and an array replaces the whole source-owned collection. Payment observations are immutable and do not support `PATCH`.
+
+The resource URL and normalized payload digest make identical retries safe. A changed Party or Receivable payload becomes the next accepted source representation. A changed payload for an existing payment-observation ID returns `409 payment_observation_conflict`.
+
+## Receivable authority
+
+`recoverableAmount` is the sole recovery authority. `credit_union.v1` accepts EUR amounts with exactly two decimal places. Optional outstanding, arrears, instalment, and balance-breakdown amounts provide context and never expand the recoverable amount.
+
+Pause, clear-pause, close, and reopen are explicit commands. They are not ordinary status patches, and they never resume PayPathIQ automation automatically.
+
+## Safety assertions
+
+Safety facts use a closed vocabulary and an explicit `active` or `cleared` state with `effectiveAt`. Omission never clears safety evidence. Unknown assertion types are rejected.
